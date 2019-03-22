@@ -1,0 +1,42 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<mat-sidenav-container>
+  <mat-sidenav position="end" [(opened)]='sidenavOpened'>
+    <h2>Filter</h2>
+    <p>
+      <mat-checkbox [(ngModel)]='onlyUndone' (change)='refresh()'>undone</mat-checkbox>
+    </p>
+    <p>
+      <mat-checkbox [(ngModel)]='assignedToMe' (change)='refresh()'>assigned to me</mat-checkbox>
+    </p>
+    <form *ngIf='assignedToMe' class="example-form">
+      <mat-form-field>
+        <input matInput placeholder="Your Name" [(ngModel)]='userName' name='name' (keyup)='refresh()'>
+      </mat-form-field>
+    </form>
+    <p *ngIf='assignedToMe && userName.length<=0' class='name-error'>
+      You cannot be nameless!
+    </p>
+  </mat-sidenav>
+  <section>
+    <mat-toolbar color='primary'>
+      Todos
+      <span class="toolbar-spacer"></span>
+      <button mat-icon-button (click)='refresh()'>
+        <mat-icon aria-hidden="false" aria-label="refresh icon">refresh</mat-icon>
+      </button>
+      <button mat-icon-button (click)='add()'>
+        <mat-icon aria-hidden="false" aria-label="add icon">add</mat-icon>
+      </button>
+      <button mat-icon-button (click)='toggleSidnav()'>
+        <mat-icon aria-hidden="false" aria-label="delete icon">filter_list</mat-icon>
+      </button>
+    </mat-toolbar>
+    <div class='container'>
+      <mat-grid-list cols='3' rowHeight='2:1'>
+        <mat-grid-tile *ngFor='let todo of todos'>
+          <app-todo-item [todoItem]='todo' (doneChanged)="onDoneChanged($event)" (deleteClicked)="onDeleteTodo($event)" (editClicked)='onEditTodo($event)'></app-todo-item>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </section>
+</mat-sidenav-container>

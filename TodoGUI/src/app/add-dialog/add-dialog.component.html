@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Add ToDo</h1>
+<mat-dialog-content>
+  <form class="example-form">
+    <mat-form-field>
+      <input matInput placeholder="Description" [(ngModel)]='data.description' name='description'
+        (keyup)='checkCanAdd()' required>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Assigned to</mat-label>
+      <mat-select [(ngModel)]='data.assignedTo' name='assignedTo'>
+        <mat-option *ngFor="let person of people" [value]="person.name">
+          {{person.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button *ngIf='data.assignedTo' mat-button (click)='clear()'>clear</button>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial [disabled]='!canAdd'>Add</button>
+</mat-dialog-actions>

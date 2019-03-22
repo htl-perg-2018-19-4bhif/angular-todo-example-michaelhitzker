@@ -1,0 +1,18 @@
+<mat-card class='todo-card' [ngStyle]="{'background-color': todoItem.done ? '#81c784' : '#ff8a65'}">
+  <mat-card-title>
+    {{todoItem.assignedTo}}
+  </mat-card-title>
+
+  <mat-card-content>
+    <p>{{todoItem.description}}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)='toggleDone()'>MARK AS {{todoItem.done ? 'NOT DONE' : 'DONE'}}</button>
+    <button mat-icon-button (click)='edit()'>
+        <mat-icon aria-hidden="false" aria-label="delete icon">edit</mat-icon>
+      </button>
+    <button mat-icon-button (click)='delete()'>
+      <mat-icon aria-hidden="false" aria-label="delete icon">delete</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>
